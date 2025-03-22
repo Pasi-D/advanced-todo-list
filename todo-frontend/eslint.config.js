@@ -40,7 +40,9 @@ export default tseslint.config(
       ],
       "prettier/prettier": ["warn", {
         "endOfLine": "auto"
-      }]
+      }],
+      "@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }],
+      "@typescript-eslint/no-explicit-any": ["warn", { "ignoreRestArgs": true }],
     },
   },
 )
