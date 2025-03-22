@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./pages/Landing";
 import NotFound from "./pages/NotFound";
+import { Sonner } from "./components/ui";
 
-import "./App.css";
-
-const App: React.FC = () => {
+const App = () => {
   return (
     <>
+      <Sonner />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />

@@ -1,4 +1,113 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --background: 210 30% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 221 70% 95%;
+    --accent-foreground: 221 83% 53%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 222 84% 48%;
+
+    --radius: 0.75rem;
+
+    /* Priority Colors */
+    --priority-low: 142 72% 45%;
+    --priority-medium: 41 100% 59%;
+    --priority-high: 0 85% 60%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 100px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+/* Component classes */
+@layer components {
+  .priority-badge {
+    @apply text-xs font-medium px-2 py-0.5 rounded-full flex items-center gap-1;
+  }
+
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-sm;
+  }
+
+  .priority-badge-low {
+    @apply bg-priority-low/10 text-priority-low;
+  }
+
+  .priority-badge-medium {
+    @apply bg-priority-medium/10 text-priority-medium;
+  }
+
+  .priority-badge-high {
+    @apply bg-priority-high/10 text-priority-high;
+  }
+
+  .task-item {
+    @apply flex items-center p-4 mb-2 rounded-lg transition-all duration-250 animate-slide-in;
+  }
+
+  .task-item-container {
+    @apply relative glass-panel rounded-xl overflow-hidden;
+  }
+
+  .task-item-done {
+    @apply bg-secondary/50;
+  }
+
+  .task-item:hover {
+    @apply bg-secondary/30;
+  }
+
+  .task-action-button {
+    @apply p-2 text-muted-foreground hover:text-foreground rounded-full transition-colors duration-250;
+  }
+}
