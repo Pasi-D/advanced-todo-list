@@ -27,3 +27,7 @@ before Task B). ⭐⭐⭐
 - Handling recurring tasks logic (auto-create at scheduled intervals). ⭐⭐⭐
 - Enforcing task dependencies (e.g., Task A must be completed before Task B).
 ⭐⭐⭐
+
+---
+
+This project uses a yarn workspace 
