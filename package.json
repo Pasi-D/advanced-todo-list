@@ -1,0 +1,8 @@
+{
+    "name": "todo-app",
+    "private": true,
+    "workspaces": ["todo-frontend"],
+    "scripts": {
+        "web:dev": "yarn workspace todo-frontend dev"
+    }
+}
