@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
+import { toast } from "sonner";
 import {
   Button,
   Calendar,
@@ -20,7 +21,6 @@ import {
 } from "@/components/ui";
 import useTaskStore from "@/store/useTaskStore";
 import { Priority, RecurrenceType, Task } from "@/types/task";
-import { toast } from "sonner";
 
 interface AddTaskFormProps {
   open: boolean;
