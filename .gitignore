@@ -1,5 +1,6 @@
 # VSCode
-/.vscode
+.vscode/*
+!.vscode/extensions.json
 *.code-workspace
 
 # Shared node modules
