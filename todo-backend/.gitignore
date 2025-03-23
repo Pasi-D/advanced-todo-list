@@ -12,3 +12,6 @@ node_modules
 dist
 # Data stored
 data
+
+# Jest coverage reports
+coverage

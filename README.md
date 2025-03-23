@@ -1,15 +1,13 @@
-# Gapstar's Tech Lead (React/Node) Assessment 
-
 ## 📝 Advanced TODO List Assignment
 
 ### Rules:
-- Code should be located in a repository (For instance: GitLab) ✅
-- Implement the project using React.js (Frontend) and Node.js | Express (Backend). ✅
-- Use TypeScript for both frontend and backend. ✅
-- Feel free to use any state management library or additional packages. ✅
-- Design your own UI/UX. ✅
-- Demonstrate and reveal all your knowledge in project implementation. ✅
-- Code should follow best practices and include unit tests.
+- Code should be located in a repository (For instance: GitLab) (✅)
+- Implement the project using React.js (Frontend) and Node.js | Express (Backend). (✅)
+- Use TypeScript for both frontend and backend. (✅)
+- Feel free to use any state management library or additional packages. (✅)
+- Design your own UI/UX. (✅)
+- Demonstrate and reveal all your knowledge in project implementation. (✅)
+- Code should follow best practices and include unit tests (⚠️ Unit tests partially done)
 
 ### Frontend (React.js + TypeScript)
 ✅ Implement a TODO list with the following features:
@@ -81,3 +79,19 @@ You can build a production build using below command
 ```bash
 yarn web:build
 ```
+
+> ### Running unit tests in backend
+
+You can run the unit tests using
+
+```bash
+yarn api:test
+```
+
+You can generate coverage report via
+
+```bash
+yarn api:test:coverage
+```
+
+This will be available within `todo-backend/coverage` directory.

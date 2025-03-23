@@ -7,6 +7,9 @@
         "web:build": "yarn workspace todo-frontend build",
         "api:dev": "yarn workspace todo-backend dev",
         "api:build": "yarn workspace todo-backend build",
-        "api:start": "yarn workspace todo-backend start"
+        "api:start": "yarn workspace todo-backend start",
+        "api:test": "yarn workspace todo-backend test",
+        "api:test:watch": "yarn workspace todo-backend test:watch",
+        "api:test:coverage": "yarn workspace todo-backend test:coverage"
     }
 }
