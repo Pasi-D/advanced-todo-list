@@ -1,4 +1,4 @@
-import TaskModel from "../models/taskModel";
+import TaskModel from "../models/task.model";
 import { Task, TaskFilter, TaskSort } from "../types";
 
 class TaskService {
