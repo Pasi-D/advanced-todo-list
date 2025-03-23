@@ -1,9 +1,12 @@
 {
     "name": "todo-app",
     "private": true,
-    "workspaces": ["todo-frontend"],
+    "workspaces": ["todo-frontend", "todo-backend"],
     "scripts": {
         "web:dev": "yarn workspace todo-frontend dev",
-        "web:build": "yarn workspace todo-frontend build"
+        "web:build": "yarn workspace todo-frontend build",
+        "api:dev": "yarn workspace todo-backend dev",
+        "api:build": "yarn workspace todo-backend build",
+        "api:build:start": "yarn workspace todo-backend start"
     }
 }

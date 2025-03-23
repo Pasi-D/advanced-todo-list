@@ -1,0 +1,38 @@
+{
+  "name": "todo-backend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Advanced TODO REST API",
+  "main": "index.js",
+  "author": "Pasindu Dilshan<pasindu_dilshan@outlook.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.13.11",
+    "@typescript-eslint/eslint-plugin": "^8.27.0",
+    "@typescript-eslint/parser": "^8.27.0",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "prettier": "^3.5.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.27.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.9.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "uuid": "^11.1.0"
+  }
+}
