@@ -153,8 +153,8 @@ class TaskModel {
 
     // Apply filters
     if (filter.searchTerm) {
-      query += " AND (title LIKE ? OR description LIKE ?)";
-      const searchPattern = `%${filter.searchTerm}%`;
+      query += " AND (LOWER(title) LIKE ? OR LOWER(description) LIKE ?)";
+      const searchPattern = `%${filter.searchTerm.toLowerCase()}%`;
       params.push(searchPattern, searchPattern);
     }
 
@@ -163,8 +163,9 @@ class TaskModel {
       params.push(...filter.priorities);
     }
 
-    if (filter.showCompleted === false) {
-      query += " AND completed = 0";
+    if (filter.showCompleted !== undefined) {
+      query += " AND completed = ?";
+      params.push(filter.showCompleted ? 1 : 0);
     }
 
     if (filter.recurrence) {

@@ -15,10 +15,7 @@ const TaskDashboard = () => {
 
   const fetchData = useCallback(async () => {
     await fetchTasks();
-    if (error) {
-      toast.error("Failed to fetch tasks");
-    }
-  }, [error, fetchTasks]);
+  }, [fetchTasks]);
 
   useEffect(() => {
     fetchData();

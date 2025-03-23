@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { IController, RecurrenceType, Task, TaskFilter, TaskSort } from "../types";
+import { IController, Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "../types";
 import TaskService from "../services/taskService";
 import { validationResult } from "express-validator";
 
@@ -123,16 +123,22 @@ class TaskController implements IController {
       const {
         searchTerm = "",
         priorities = [],
-        showCompleted = true,
+        showCompleted,
         recurrence,
         sortField = "createdAt",
         sortDirection = "desc",
       } = request.query;
 
+      const prioritiesParam = Array.isArray(priorities)
+        ? priorities
+        : typeof priorities === "string"
+          ? [priorities]
+          : [];
+
       const filter: TaskFilter = {
         searchTerm: searchTerm as string,
-        priorities: (priorities as any) || [],
-        showCompleted: showCompleted === "true",
+        priorities: prioritiesParam as Priority[],
+        showCompleted: showCompleted as boolean | undefined,
         recurrence: recurrence as RecurrenceType | undefined,
       };
 
