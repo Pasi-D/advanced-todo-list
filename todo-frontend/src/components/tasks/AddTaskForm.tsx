@@ -179,7 +179,7 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
                 today.setHours(0, 0, 0, 0);
                 return date < today;
               }}
-              autoFocus
+              initialFocus
             />
           </PopoverContent>
         </Popover>

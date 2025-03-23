@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { DayPicker, ChevronProps } from "react-day-picker";
+import { DayPicker, DayPickerProps } from "react-day-picker";
 
 import { buttonVariants } from "@/components/ui/button";
 
@@ -15,7 +15,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={`p-3 ${className}`}
+      className={`p-3 pointer-events-auto ${className}`}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
@@ -46,14 +46,25 @@ function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
-      components={{
-        Chevron: (props: ChevronProps) =>
-          props.orientation === "left" ? (
-            <ChevronLeft className="h-4 w-4" />
-          ) : (
-            <ChevronRight className="h-4 w-4" />
-          ),
-      }}
+      components={
+        {
+          IconLeft: ({
+            className,
+            ...props
+          }: {
+            className?: string;
+            props?: React.SVGProps<SVGSVGElement>;
+          }) => <ChevronLeft className={`size-4 ${className}`} {...props} />,
+
+          IconRight: ({
+            className,
+            ...props
+          }: {
+            className?: string;
+            props?: React.SVGProps<SVGSVGElement>;
+          }) => <ChevronRight className={`size-4 ${className}`} {...props} />,
+        } as unknown as Partial<DayPickerProps["components"]>
+      }
       {...props}
     />
   );
