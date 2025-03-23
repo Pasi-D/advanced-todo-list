@@ -59,8 +59,8 @@ const TaskItem = ({ task }: TaskItemProps) => {
     : [];
   const hasDependencies = dependencies.length > 0;
 
-  const handleToggleCompletion = () => {
-    const success = toggleTaskCompletion(task.id);
+  const handleToggleCompletion = async () => {
+    const success = await toggleTaskCompletion(task.id);
     if (!success) {
       const { blockedBy } = useTaskStore.getState().canCompleteTask(task.id);
       toast.error(
@@ -249,10 +249,12 @@ const TaskItem = ({ task }: TaskItemProps) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="px-4 py-2 rounded-md">
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteTask}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none transition-all"
             >
               Delete
             </AlertDialogAction>
