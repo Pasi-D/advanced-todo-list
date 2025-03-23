@@ -1,7 +1,10 @@
 {
   "name": "todo-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Advanced TODO Frontend App",
+  "author": "Pasindu Dilshan<pasindu_dilshan@outlook.com>",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
