@@ -3,12 +3,12 @@
 ## 📝 Advanced TODO List Assignment
 
 ### Rules:
-- Code should be located in a repository (For instance: GitLab).
-- Implement the project using React.js (Frontend) and Node.js | Express (Backend).
-- Use TypeScript for both frontend and backend.
-- Feel free to use any state management library or additional packages.
-- Design your own UI/UX.
-- Demonstrate and reveal all your knowledge in project implementation.
+- Code should be located in a repository (For instance: GitLab) ✅
+- Implement the project using React.js (Frontend) and Node.js | Express (Backend). ✅
+- Use TypeScript for both frontend and backend. ✅
+- Feel free to use any state management library or additional packages. ✅
+- Design your own UI/UX. ✅
+- Demonstrate and reveal all your knowledge in project implementation. ✅
 - Code should follow best practices and include unit tests.
 
 ### Frontend (React.js + TypeScript)
@@ -30,4 +30,54 @@ before Task B). ⭐⭐⭐
 
 ---
 
-This project uses a yarn workspace 
+> This project uses a [yarn workspace](https://classic.yarnpkg.com/lang/en/docs/workspaces/).
+
+---
+### Pre-requisites
+
+- Make sure you have Node JS installed on your environment. Use the node version specified in [./nvmrc]('./nvmrc') file.
+- Make sure you have [yarn](https://classic.yarnpkg.com/en/)
+- Ensure you have updated the environment variables in `todo-frontend` directory. Refer [Frontend README](./todo-frontend/README.md)
+
+--- 
+### Available scripts
+
+> #### Installing dependencies 
+
+```bash
+yarn
+```
+
+> ### Starting the Advanced TODO API
+
+You can do this in development environment with below command
+
+```bash
+yarn api:dev
+```
+
+If you want a production version, first build the API
+
+```bash
+yarn api:build
+```
+
+Then start the build
+
+```bash
+yarn api:start
+```
+
+> ### Starting the Advanced TODO Frontend
+
+You can do this in development environment with below command
+
+```bash
+yarn web:dev
+```
+
+You can build a production build using below command
+
+```bash
+yarn web:build
+```

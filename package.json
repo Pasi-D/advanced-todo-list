@@ -7,6 +7,6 @@
         "web:build": "yarn workspace todo-frontend build",
         "api:dev": "yarn workspace todo-backend dev",
         "api:build": "yarn workspace todo-backend build",
-        "api:build:start": "yarn workspace todo-backend start"
+        "api:start": "yarn workspace todo-backend start"
     }
 }
