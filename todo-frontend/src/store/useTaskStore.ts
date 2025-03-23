@@ -8,7 +8,10 @@ interface TaskState {
   error: string | null;
   sort: TaskSort;
   filter: TaskFilter;
-  fetchTasks: () => Promise<void>;
+  fetchTasks: (
+    filter?: Partial<TaskFilter>,
+    sort?: Partial<TaskSort>,
+  ) => Promise<void>;
   addTask: (
     task: Omit<Task, "id" | "createdAt" | "updatedAt">,
   ) => Promise<string | null>;
@@ -36,26 +39,14 @@ const useTaskStore = create<TaskState>()((set, get) => ({
   filter: {
     searchTerm: "",
     priorities: ["low", "medium", "high"],
-    showCompleted: true,
+    showCompleted: undefined,
   },
 
-  fetchTasks: async () => {
+  fetchTasks: async (filter = get().filter, sort = get().sort) => {
     set({ isLoading: true, error: null });
     try {
-      // If search/filter/sort parameters are active, use search endpoint
-      const { filter, sort } = get();
-      const hasActiveFilters =
-        filter.searchTerm !== "" ||
-        filter.priorities.length !== 3 ||
-        !filter.showCompleted ||
-        filter.recurrence !== undefined;
 
-      let tasks;
-      if (hasActiveFilters) {
-        tasks = await taskApi.searchTasks(filter, sort);
-      } else {
-        tasks = await taskApi.getAllTasks();
-      }
+      const tasks = await taskApi.searchTasks(filter, sort);
 
       set({ tasks, isLoading: false });
     } catch (error) {
@@ -162,17 +153,16 @@ const useTaskStore = create<TaskState>()((set, get) => ({
 
   setSort: (sort) => {
     set({ sort });
-    // Refetch tasks with new sort if using API
-    get().fetchTasks();
+    const { filter } = get();
+    get().fetchTasks(filter, sort);
   },
 
   setFilter: (filter) => {
     set((state) => ({ filter: { ...state.filter, ...filter } }));
-    // Refetch tasks with new filter if using API
-    get().fetchTasks();
+    const { sort } = get();
+    get().fetchTasks(filter, sort);
   },
 
-  // This works on the client-side with already fetched tasks
   getFilteredSortedTasks: () => {
     const { tasks } = get();
     return tasks;

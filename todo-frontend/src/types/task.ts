@@ -26,6 +26,6 @@ export interface TaskSort {
 export interface TaskFilter {
   searchTerm: string;
   priorities: Priority[];
-  showCompleted: boolean;
+  showCompleted: boolean | undefined;
   recurrence?: RecurrenceType;
 }

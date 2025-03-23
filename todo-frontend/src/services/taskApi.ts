@@ -46,23 +46,28 @@ const taskApi = {
   },
 
   // Search and filter tasks
-  searchTasks: async (filter: TaskFilter, sort: TaskSort): Promise<Task[]> => {
+  searchTasks: async (
+    filter: Partial<TaskFilter>,
+    sort: Partial<TaskSort>,
+  ): Promise<Task[]> => {
     // Build query parameters
     const params = new URLSearchParams();
 
     // Add search parameters
     if (filter.searchTerm) params.append("searchTerm", filter.searchTerm);
-    if (filter.priorities.length) {
+    if (filter?.priorities?.length) {
       filter.priorities.forEach((priority) => {
         params.append("priorities", priority);
       });
     }
-    params.append("showCompleted", String(filter.showCompleted));
+    if (filter.showCompleted) {
+      params.append("showCompleted", String(filter.showCompleted));
+    }
     if (filter.recurrence) params.append("recurrence", filter.recurrence);
 
     // Add sort parameters
-    params.append("sortField", sort.field);
-    params.append("sortDirection", sort.direction);
+    params.append("sortField", sort.field || "createdAt");
+    params.append("sortDirection", sort.direction || "desc");
 
     const response = await fetch(
       `${API_HOST}/task/search?${params.toString()}`,
