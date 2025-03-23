@@ -41,7 +41,7 @@ const TaskHeader = ({ taskCount }: TaskHeaderProps) => {
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
-    // setFilter({ searchTerm: value });
+    setFilter({ searchTerm: value });
   };
 
   const handleSort = (field: TaskSort["field"]) => {
