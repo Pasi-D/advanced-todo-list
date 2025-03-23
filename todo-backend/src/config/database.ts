@@ -14,7 +14,12 @@ const db = new Database(dbPath);
 
 // Initialize database with required tables
 const initDatabase = () => {
-  const tasksTable = `
+  const tablesExist = db
+    .prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name='tasks';`)
+    .get();
+
+  if (!tablesExist) {
+    const tasksTable = `
       CREATE TABLE IF NOT EXISTS tasks (
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
@@ -28,9 +33,11 @@ const initDatabase = () => {
         dependsOn TEXT
       )
     `;
-
-  db.exec(tasksTable);
-  console.info("Database initialized");
+    db.exec(tasksTable);
+    console.info("Database initialized 🫙");
+  } else {
+    console.info("Database already initialized ✅");
+  }
 };
 
 export { db, initDatabase };
