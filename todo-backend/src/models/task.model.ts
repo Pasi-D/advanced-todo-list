@@ -1,6 +1,6 @@
 import { db } from "../config/database";
 import { v4 as uuidv4 } from "uuid";
-import { Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "../types/task";
+import { Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
 class TaskModel {
   public getAllTasks = async (): Promise<Task[]> => {

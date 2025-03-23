@@ -1,4 +1,4 @@
-import { Priority, RecurrenceType } from "../../types/task";
+import { Priority, RecurrenceType } from "@workspace/shared-types";
 
 // Sample task data for testing
 export const sampleTask = {

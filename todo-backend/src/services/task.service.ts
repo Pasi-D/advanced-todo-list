@@ -1,5 +1,5 @@
 import TaskModel from "../models/task.model";
-import { Task, TaskFilter, TaskSort } from "../types";
+import { Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
 class TaskService {
   public taskModel = new TaskModel();

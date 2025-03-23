@@ -1,7 +1,8 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { IController, Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "../types";
+import { Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 import TaskService from "../services/task.service";
 import { validationResult } from "express-validator";
+import { IController } from "../types";
 
 class TaskController implements IController {
   public path = "/task";
