@@ -1,4 +1,4 @@
-import { Priority } from "@/types/task";
+import { Priority } from "@workspace/shared-types";
 
 const getPriorityColor = (priority: Priority) => {
   switch (priority) {

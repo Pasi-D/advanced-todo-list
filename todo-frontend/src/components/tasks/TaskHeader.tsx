@@ -24,7 +24,7 @@ import {
   SheetDescription,
   Separator,
 } from "@/components/ui";
-import { Priority, TaskSort } from "@/types/task";
+import { Priority, TaskSort } from "@workspace/shared-types";
 import useTaskStore from "@/store/useTaskStore";
 import AddTaskForm from "./AddTaskForm";
 import { getPriorityColor, getPriorityLabel } from "@/lib/utils";

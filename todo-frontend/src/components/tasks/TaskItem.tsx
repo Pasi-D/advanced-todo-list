@@ -37,7 +37,7 @@ import {
   SheetTitle,
 } from "@/components/ui";
 import useTaskStore from "@/store/useTaskStore";
-import { Task } from "@/types/task";
+import { Task } from "@workspace/shared-types";
 import { Separator } from "@/components/ui/separator";
 import AddTaskForm from "./AddTaskForm";
 import { getPriorityColor, getPriorityLabel } from "@/lib/utils";

@@ -1,4 +1,4 @@
-import { Task, TaskSort, TaskFilter } from "../types/task";
+import { Task, TaskSort, TaskFilter } from "@workspace/shared-types";
 
 const API_HOST = import.meta.env.VITE_API_HOST || "http://localhost:3000";
 

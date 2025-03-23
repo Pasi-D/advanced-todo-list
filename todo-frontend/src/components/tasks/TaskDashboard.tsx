@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import TaskHeader from "./TaskHeader";
 import TaskItem from "./TaskItem";
 import useTaskStore from "@/store/useTaskStore";
-import { Task } from "@/types/task";
+import { Task } from "@workspace/shared-types";
 
 const TaskDashboard = () => {
   const { tasks, isLoading, error, fetchTasks, getFilteredSortedTasks } =

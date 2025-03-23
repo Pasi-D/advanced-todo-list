@@ -1,0 +1,10 @@
+{
+    "name": "@workspace/shared-types",
+    "version": "1.0.0",
+    "private":"true",
+    "main": "src/task.ts",
+    "types": "src/task.ts",
+    "license": "MIT",
+    "description": "Shared type definitions for the todo-app monorepo",
+    "author": "Pasindu Dilshan <pasindu_dilshan@outlook.com>"
+}

@@ -25,6 +25,7 @@
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-switch": "^1.1.3",
     "@radix-ui/react-toast": "^1.2.6",
+    "@workspace/shared-types": "*",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.5.0",
     "lucide-react": "^0.483.0",

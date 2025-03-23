@@ -20,7 +20,7 @@ import {
   Switch,
 } from "@/components/ui";
 import useTaskStore from "@/store/useTaskStore";
-import { Priority, RecurrenceType, Task } from "@/types/task";
+import { Priority, RecurrenceType, Task } from "@workspace/shared-types";
 
 interface AddTaskFormProps {
   open: boolean;

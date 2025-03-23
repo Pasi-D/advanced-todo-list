@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import taskApi from "@/services/taskApi";
-import { Task, TaskSort, TaskFilter } from "@/types/task";
+import { Task, TaskSort, TaskFilter } from "@workspace/shared-types";
 
 interface TaskState {
   tasks: Task[];
