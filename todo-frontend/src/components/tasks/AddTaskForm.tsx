@@ -4,11 +4,13 @@ import { format } from "date-fns";
 import {
   Button,
   Calendar,
+  Checkbox,
   Input,
   Label,
   Popover,
   PopoverContent,
   PopoverTrigger,
+  ScrollArea,
   Select,
   SelectContent,
   SelectItem,
@@ -42,8 +44,18 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
   const [recurringType, setRecurringType] = useState<RecurrenceType>(
     taskToEdit?.recurrence || "none",
   );
+  const [dependencies, setDependencies] = useState<string[]>(
+    taskToEdit?.dependsOn || [],
+  );
+
+  const tasks = useTaskStore((state) => state.tasks);
   const addTask = useTaskStore((state) => state.addTask);
   const updateTask = useTaskStore((state) => state.updateTask);
+
+  // Filter out the current task (if editing) and completed tasks from potential dependencies
+  const availableDependencies = tasks.filter(
+    (task) => (!taskToEdit || task.id !== taskToEdit.id) && !task.completed,
+  );
 
   const priorities = [
     {
@@ -89,6 +101,7 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
         priority,
         dueDate,
         recurrence: isRecurring ? recurringType : "none",
+        dependsOn: dependencies,
       });
       toast.success("Task updated successfully");
       if (onSuccess) onSuccess();
@@ -100,7 +113,7 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
         dueDate,
         completed: false,
         recurrence: isRecurring ? recurringType : "none",
-        dependsOn: [],
+        dependsOn: dependencies,
       };
 
       addTask(newTask);
@@ -113,7 +126,16 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
     setDueDate(undefined);
     setIsRecurring(false);
     setRecurringType("none");
+    setDependencies([]);
     setOpen(false);
+  };
+
+  const handleDependencyChange = (taskId: string, checked: boolean) => {
+    if (checked) {
+      setDependencies((prev) => [...prev, taskId]);
+    } else {
+      setDependencies((prev) => prev.filter((id) => id !== taskId));
+    }
   };
 
   return (
@@ -184,6 +206,63 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
           </PopoverContent>
         </Popover>
       </div>
+
+      {/* Dependencies Section */}
+      {availableDependencies.length > 0 && (
+        <div className="grid gap-2">
+          <Label>Dependencies</Label>
+          <div className="border rounded-md p-3">
+            {availableDependencies.length > 4 ? (
+              <ScrollArea className="h-[150px]">
+                {availableDependencies.map((task) => (
+                  <div
+                    key={task.id}
+                    className="flex items-center space-x-2 py-1"
+                  >
+                    <Checkbox
+                      id={`dep-${task.id}`}
+                      checked={dependencies.includes(task.id)}
+                      onCheckedChange={(checked) =>
+                        handleDependencyChange(task.id, checked === true)
+                      }
+                    />
+                    <Label
+                      htmlFor={`dep-${task.id}`}
+                      className="text-sm cursor-pointer"
+                    >
+                      {task.title}
+                    </Label>
+                  </div>
+                ))}
+              </ScrollArea>
+            ) : (
+              availableDependencies.map((task) => (
+                <div key={task.id} className="flex items-center space-x-2 py-1">
+                  <Checkbox
+                    id={`dep-${task.id}`}
+                    checked={dependencies.includes(task.id)}
+                    onCheckedChange={(checked) =>
+                      handleDependencyChange(task.id, checked === true)
+                    }
+                  />
+                  <Label
+                    htmlFor={`dep-${task.id}`}
+                    className="text-sm cursor-pointer"
+                  >
+                    {task.title}
+                  </Label>
+                </div>
+              ))
+            )}
+            {availableDependencies.length === 0 && (
+              <p className="text-sm text-muted-foreground">
+                No available tasks to add as dependencies.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
       <div className="flex items-center space-x-2">
         <Switch
           id="recurring"
