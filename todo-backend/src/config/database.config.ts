@@ -1,19 +1,25 @@
-import Database from "better-sqlite3";
+import Database, { Database as IDatabase } from "better-sqlite3";
 import fs from "fs";
 import path from "path";
 
-// Ensure the data directory exists
-const dataDir = path.join(__dirname, "../../data");
+const TEST_DB_NAME = "test.sqlite";
+const DATA_DB_NAME = "todo.sqlite";
 
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir);
-}
+// Function to get a database instance
+const getDatabase = (dbName: string = DATA_DB_NAME) => {
+  const dataDir = path.join(__dirname, "../../data");
 
-const dbPath = path.join(dataDir, "todo.sqlite");
-const db = new Database(dbPath);
+  // Ensure the data directory exists
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir);
+  }
+
+  const dbPath = path.join(dataDir, dbName);
+  return new Database(dbPath);
+};
 
 // Initialize database with required tables
-const initDatabase = () => {
+const initDatabase = (db: IDatabase) => {
   const tablesExist = db
     .prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name='tasks';`)
     .get();
@@ -40,4 +46,4 @@ const initDatabase = () => {
   }
 };
 
-export { db, initDatabase };
+export { getDatabase, initDatabase, TEST_DB_NAME };

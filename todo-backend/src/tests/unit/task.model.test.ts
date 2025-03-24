@@ -1,10 +1,11 @@
+import { getDatabase, TEST_DB_NAME } from "../../config/database.config";
 import TaskModel from "../../models/task.model";
 import { createTaskPayload, sampleTask, updateTaskPayload } from "../fixtures/task.fixtures";
 
 describe("TaskModel", () => {
   let taskId: string;
 
-  const taskModel = new TaskModel();
+  const taskModel = new TaskModel(getDatabase(TEST_DB_NAME));
 
   beforeEach(async () => {
     // Create a test task

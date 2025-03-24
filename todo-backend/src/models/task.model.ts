@@ -1,10 +1,16 @@
-import { db } from "../config/database.config";
+import { Database as IDatabase } from "better-sqlite3";
 import { v4 as uuidv4 } from "uuid";
 import { Priorities, Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
 class TaskModel {
+  private db: IDatabase;
+
+  constructor(db: IDatabase) {
+    this.db = db;
+  }
+
   public getAllTasks = async (): Promise<Task[]> => {
-    const stmt = db.prepare("SELECT * FROM tasks");
+    const stmt = this.db.prepare("SELECT * FROM tasks");
     const tasks = stmt.all();
 
     return tasks.map(this.mapTaskFromDb);
@@ -16,7 +22,7 @@ class TaskModel {
 
     const dependsOnStr = JSON.stringify(task.dependsOn || []);
 
-    const stmt = db.prepare(`
+    const stmt = this.db.prepare(`
       INSERT INTO tasks (id, title, description, completed, priority, createdAt, updatedAt, recurrence, dueDate, dependsOn)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
@@ -49,7 +55,7 @@ class TaskModel {
   };
 
   public getTaskById = async (id: string): Promise<Task | null> => {
-    const stmt = db.prepare("SELECT * FROM tasks WHERE id = ?");
+    const stmt = this.db.prepare("SELECT * FROM tasks WHERE id = ?");
 
     const task = stmt.get(id);
 
@@ -115,7 +121,7 @@ class TaskModel {
     params.push(id);
 
     if (setClauses.length > 0) {
-      const stmt = db.prepare(`
+      const stmt = this.db.prepare(`
         UPDATE tasks
         SET ${setClauses.join(", ")}
         WHERE id = ?
@@ -128,14 +134,14 @@ class TaskModel {
   };
 
   public deleteTask = async (id: string) => {
-    const stmt = db.prepare("DELETE FROM tasks WHERE id = ?");
+    const stmt = this.db.prepare("DELETE FROM tasks WHERE id = ?");
     const result = stmt.run(id);
 
     return result.changes > 0;
   };
 
   public getDependentTasks = async (taskId: string): Promise<Task[]> => {
-    const stmt = db.prepare(`
+    const stmt = this.db.prepare(`
       SELECT * FROM tasks 
       WHERE dependsOn LIKE ?
     `);
@@ -214,14 +220,14 @@ class TaskModel {
       query += " ORDER BY createdAt DESC";
     }
 
-    const stmt = db.prepare(query);
+    const stmt = this.db.prepare(query);
     const tasks = stmt.all(...params);
 
     return tasks.map(this.mapTaskFromDb);
   };
 
   public getRecurringTasks = async (): Promise<Task[]> => {
-    const stmt = db.prepare(`
+    const stmt = this.db.prepare(`
       SELECT * FROM tasks
       WHERE recurrence != 'none' AND dueDate <= ?
     `);

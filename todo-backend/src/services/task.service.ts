@@ -1,8 +1,9 @@
+import { getDatabase } from "../config/database.config";
 import TaskModel from "../models/task.model";
 import { Recurrences, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
 class TaskService {
-  public taskModel = new TaskModel();
+  public taskModel = new TaskModel(getDatabase());
 
   public getAllTasks = async () => {
     return await this.taskModel.getAllTasks();

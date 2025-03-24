@@ -4,7 +4,7 @@ import helmet from "helmet";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { IController } from "./types";
-import { initDatabase } from "./config/database.config";
+import { initDatabase, getDatabase } from "./config/database.config";
 import swaggerOptions from "./config/swagger.config";
 import initializeScheduler from "./schedulers/task.scheduler";
 
@@ -35,7 +35,8 @@ class App {
   }
 
   private initializeDatabase() {
-    initDatabase();
+    const db = getDatabase();
+    initDatabase(db);
   }
 
   private initializeSwagger() {

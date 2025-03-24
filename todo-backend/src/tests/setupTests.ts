@@ -1,34 +1,21 @@
-import { db, initDatabase } from "../config/database.config";
-import path from "path";
-import fs from "fs";
+import { Database } from "better-sqlite3";
+import { getDatabase, initDatabase, TEST_DB_NAME } from "../config/database.config";
 
-// Use a test database file
-const testDbPath = path.join(__dirname, "../../data/test.sqlite");
+let db: Database | null = null;
 
-// Before all tests
 beforeAll(() => {
-  // Delete the test database if it exists
-  if (fs.existsSync(testDbPath)) {
-    fs.unlinkSync(testDbPath);
-  }
-
-  // Make sure the data directory exists
-  const dataDir = path.join(__dirname, "../../data");
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir);
-  }
-
-  // Initialize a fresh test database
-  initDatabase();
+  // Reinitialize the database
+  db = getDatabase(TEST_DB_NAME);
+  initDatabase(db);
 });
 
 // Clean up database between tests
 afterEach(() => {
   // Delete all tasks
-  db.exec("DELETE FROM tasks");
+  db?.exec("DELETE FROM tasks");
 });
 
 // Close database connection after all tests
 afterAll(() => {
-  db.close();
+  db?.close();
 });
