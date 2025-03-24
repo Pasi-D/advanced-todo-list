@@ -17,7 +17,26 @@ class TaskController implements IController {
     this.router.delete(`${this.path}/:id`, this.deleteTask);
     this.router.get(`${this.path}/search`, this.searchTasks);
   }
-
+  
+  /**
+   * @swagger
+   * /task:
+   *   get:
+   *     summary: Get all tasks
+   *     tags:
+   *       - Tasks
+   *     responses:
+   *       200:
+   *         description: A list of tasks
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 $ref: '#/components/schemas/Task'
+   *       500:
+   *         description: Internal server error
+   */
   private getAllTasks = async (_request: Request, response: Response, _next: NextFunction) => {
     try {
       const tasks = await this.taskService.getAllTasks();
@@ -28,6 +47,27 @@ class TaskController implements IController {
     }
   };
 
+  /**
+   * @swagger
+   * /task:
+   *   post:
+   *     summary: Create a new task
+   *     tags:
+   *       - Tasks
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/Task'
+   *     responses:
+   *       201:
+   *         description: Task created successfully
+   *       400:
+   *         description: Validation error
+   *       500:
+   *         description: Internal server error
+   */
   private createTask = async (request: Request, response: Response, _next: NextFunction) => {
     try {
       const errors = validationResult(request);
@@ -70,6 +110,36 @@ class TaskController implements IController {
     }
   };
 
+  /**
+   * @swagger
+   * /task/{id}:
+   *   put:
+   *     summary: Update an existing task
+   *     tags:
+   *       - Tasks
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: The task ID
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/Task'
+   *     responses:
+   *       200:
+   *         description: Task updated successfully
+   *       400:
+   *         description: Validation error
+   *       404:
+   *         description: Task not found
+   *       500:
+   *         description: Internal server error
+   */
   private updateTask = async (request: Request, response: Response, _next: NextFunction) => {
     try {
       const errors = validationResult(request);
@@ -102,6 +172,28 @@ class TaskController implements IController {
     }
   };
 
+  /**
+   * @swagger
+   * /task/{id}:
+   *   delete:
+   *     summary: Delete a task
+   *     tags:
+   *       - Tasks
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: The task ID
+   *     responses:
+   *       204:
+   *         description: Task deleted successfully
+   *       404:
+   *         description: Task not found
+   *       500:
+   *         description: Internal server error
+   */
   private deleteTask = async (request: Request, response: Response, _next: NextFunction) => {
     try {
       const { id } = request.params;
@@ -119,6 +211,53 @@ class TaskController implements IController {
     }
   };
 
+  /**
+   * @swagger
+   * /task/search:
+   *   get:
+   *     summary: Search tasks
+   *     tags:
+   *       - Tasks
+   *     parameters:
+   *       - in: query
+   *         name: searchTerm
+   *         schema:
+   *           type: string
+   *         description: Search term for task titles or descriptions
+   *       - in: query
+   *         name: priorities
+   *         schema:
+   *           type: array
+   *           items:
+   *             type: string
+   *         description: Filter by priorities
+   *       - in: query
+   *         name: showCompleted
+   *         schema:
+   *           type: boolean
+   *         description: Whether to include completed tasks
+   *       - in: query
+   *         name: recurrence
+   *         schema:
+   *           type: string
+   *         description: Filter by recurrence type
+   *       - in: query
+   *         name: sortField
+   *         schema:
+   *           type: string
+   *         description: Field to sort by
+   *       - in: query
+   *         name: sortDirection
+   *         schema:
+   *           type: string
+   *           enum: [asc, desc]
+   *         description: Sort direction
+   *     responses:
+   *       200:
+   *         description: A list of tasks matching the search criteria
+   *       500:
+   *         description: Internal server error
+   */
   private searchTasks = async (request: Request, response: Response, _next: NextFunction) => {
     try {
       const {
