@@ -1,19 +1,32 @@
 import { z } from "zod";
 import { generateSchema } from '@anatine/zod-openapi';
 
-export type Priority = "low" | "medium" | "high";
+export enum Recurrences {
+  none = "none",
+  daily = "daily",
+  weekly = "weekly",
+  monthly = "monthly",
+}
 
-export type RecurrenceType = "none" | "daily" | "weekly" | "monthly";
+export enum Priorities {
+  low = "low",
+  medium = "medium",
+  high = "high",
+}
+
+export type Priority = keyof typeof Priorities;
+
+export type RecurrenceType = keyof typeof Recurrences;
 
 const taskSchema = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
   completed: z.boolean(),
-  priority: z.enum(["low", "medium", "high"]),
+  priority: z.enum([`${Priorities.low}`, `${Priorities.medium}`, `${Priorities.high}`]),
   createdAt: z.date(),
   updatedAt: z.date(),
-  recurrence: z.enum(["none", "daily", "weekly", "monthly"]),
+  recurrence: z.enum([`${Recurrences.none}`, `${Recurrences.daily}`, `${Recurrences.weekly}`, `${Recurrences.monthly}`]),
   dueDate: z.date().optional(),
   dependsOn: z.array(z.string()),
 });

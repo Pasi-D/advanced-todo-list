@@ -24,7 +24,12 @@ import {
   SheetDescription,
   Separator,
 } from "@/components/ui";
-import { Priority, TaskSort } from "@workspace/shared-types";
+import {
+  Priorities,
+  Priority,
+  Recurrences,
+  TaskSort,
+} from "@workspace/shared-types";
 import useTaskStore from "@/store/useTaskStore";
 import AddTaskForm from "./AddTaskForm";
 import { getPriorityColor, getPriorityLabel } from "@/lib/utils";
@@ -144,15 +149,17 @@ const TaskHeader = ({ taskCount }: TaskHeaderProps) => {
 
               <DropdownMenuLabel>Filter by priority</DropdownMenuLabel>
               <div className="flex px-2 py-1 gap-1">
-                {(["low", "medium", "high"] as Priority[]).map((priority) => (
-                  <Badge
-                    key={priority}
-                    className={`cursor-pointer ${getPriorityColor(priority)} ${!filter.priorities.includes(priority) ? "opacity-40" : ""}`}
-                    onClick={() => handleTogglePriority(priority)}
-                  >
-                    {getPriorityLabel(priority)}
-                  </Badge>
-                ))}
+                {[Priorities.low, Priorities.medium, Priorities.high].map(
+                  (priority) => (
+                    <Badge
+                      key={priority}
+                      className={`cursor-pointer ${getPriorityColor(priority)} ${!filter.priorities.includes(priority) ? "opacity-40" : ""}`}
+                      onClick={() => handleTogglePriority(priority)}
+                    >
+                      {getPriorityLabel(priority)}
+                    </Badge>
+                  ),
+                )}
               </div>
 
               <DropdownMenuSeparator />
@@ -192,10 +199,10 @@ const TaskHeader = ({ taskCount }: TaskHeaderProps) => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All tasks</SelectItem>
-                    <SelectItem value="none">One-time</SelectItem>
-                    <SelectItem value="daily">Daily</SelectItem>
-                    <SelectItem value="weekly">Weekly</SelectItem>
-                    <SelectItem value="monthly">Monthly</SelectItem>
+                    <SelectItem value={Recurrences.none}>One-time</SelectItem>
+                    <SelectItem value={Recurrences.daily}>Daily</SelectItem>
+                    <SelectItem value={Recurrences.weekly}>Weekly</SelectItem>
+                    <SelectItem value={Recurrences.monthly}>Monthly</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

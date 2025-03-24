@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import taskApi from "@/services/taskApi";
-import { Task, TaskSort, TaskFilter } from "@workspace/shared-types";
+import {
+  Task,
+  TaskSort,
+  TaskFilter,
+  Priorities,
+} from "@workspace/shared-types";
 
 interface TaskState {
   tasks: Task[];
@@ -38,7 +43,7 @@ const useTaskStore = create<TaskState>()((set, get) => ({
   sort: { field: "createdAt", direction: "desc" },
   filter: {
     searchTerm: "",
-    priorities: ["low", "medium", "high"],
+    priorities: [Priorities.low, Priorities.medium, Priorities.high],
     showCompleted: undefined,
   },
 

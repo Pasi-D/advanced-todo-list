@@ -1,11 +1,11 @@
-import { Priority, RecurrenceType } from "@workspace/shared-types";
+import { Priorities, Priority, Recurrences, RecurrenceType } from "@workspace/shared-types";
 
 // Sample task data for testing
 export const sampleTask = {
   title: "Test Task",
   description: "This is a test task",
   completed: false,
-  priority: "medium" as Priority,
+  priority: Priorities.medium,
   recurrence: "none" as RecurrenceType,
   dependsOn: [],
 };
@@ -13,7 +13,7 @@ export const sampleTask = {
 export const createTaskPayload = {
   title: "New Task",
   description: "Task description",
-  priority: "high" as Priority,
+  priority: Priorities.high,
   completed: false,
   recurrence: "none" as RecurrenceType,
   dependsOn: [],
@@ -22,7 +22,7 @@ export const createTaskPayload = {
 export const updateTaskPayload = {
   title: "Updated Task Title",
   description: "Updated task description",
-  priority: "low" as Priority,
+  priority: Priorities.low,
   completed: true,
 };
 
@@ -31,9 +31,9 @@ export const createMultipleTasks = [
   {
     title: "Low Priority Task",
     description: "This is a low priority task",
-    priority: "low" as Priority,
+    priority: Priorities.low,
     completed: false,
-    recurrence: "none" as RecurrenceType,
+    recurrence: Recurrences.none,
     dependsOn: [],
   },
   {
@@ -41,7 +41,7 @@ export const createMultipleTasks = [
     description: "This is a high priority task",
     priority: "high" as Priority,
     completed: false,
-    recurrence: "none" as RecurrenceType,
+    recurrence: Recurrences.none,
     dependsOn: [],
   },
   {
@@ -49,7 +49,7 @@ export const createMultipleTasks = [
     description: "This is a completed task",
     priority: "medium" as Priority,
     completed: true,
-    recurrence: "none" as RecurrenceType,
+    recurrence: Recurrences.none,
     dependsOn: [],
   },
   {
@@ -57,7 +57,7 @@ export const createMultipleTasks = [
     description: "This is a daily recurring task",
     priority: "high" as Priority,
     completed: false,
-    recurrence: "daily" as RecurrenceType,
+    recurrence: Recurrences.daily,
     dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
     dependsOn: [],
   },

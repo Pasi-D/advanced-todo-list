@@ -20,7 +20,13 @@ import {
   Switch,
 } from "@/components/ui";
 import useTaskStore from "@/store/useTaskStore";
-import { Priority, RecurrenceType, Task } from "@workspace/shared-types";
+import {
+  Priorities,
+  Priority,
+  Recurrences,
+  RecurrenceType,
+  Task,
+} from "@workspace/shared-types";
 
 interface AddTaskFormProps {
   open: boolean;
@@ -35,7 +41,7 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
     taskToEdit?.description || "",
   );
   const [priority, setPriority] = useState<Priority>(
-    taskToEdit?.priority || "low",
+    taskToEdit?.priority || Priorities.low,
   );
   const [dueDate, setDueDate] = useState<Date | undefined>(taskToEdit?.dueDate);
   const [isRecurring, setIsRecurring] = useState<boolean>(
@@ -66,30 +72,30 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
 
   const priorities = [
     {
-      value: "low" as Priority,
+      value: Priorities.low,
       label: "Low",
     },
     {
-      value: "medium" as Priority,
+      value: Priorities.medium,
       label: "Medium",
     },
     {
-      value: "high" as Priority,
+      value: Priorities.high,
       label: "High",
     },
   ];
 
   const recurringTypes = [
     {
-      value: "daily" as RecurrenceType,
+      value: Recurrences.daily,
       label: "Daily",
     },
     {
-      value: "weekly" as RecurrenceType,
+      value: Recurrences.weekly,
       label: "Weekly",
     },
     {
-      value: "monthly" as RecurrenceType,
+      value: Recurrences.monthly,
       label: "Monthly",
     },
   ];
@@ -153,7 +159,7 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
 
     setTitle("");
     setDescription("");
-    setPriority("low");
+    setPriority(Priorities.low);
     setDueDate(undefined);
     setIsRecurring(false);
     setRecurringType("none");

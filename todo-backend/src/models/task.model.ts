@@ -1,6 +1,6 @@
 import { db } from "../config/database.config";
 import { v4 as uuidv4 } from "uuid";
-import { Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
+import { Priorities, Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
 class TaskModel {
   public getAllTasks = async (): Promise<Task[]> => {
@@ -180,9 +180,9 @@ class TaskModel {
         case "priority":
           // Custom priority order: high, medium, low
           query += ` ORDER BY CASE priority 
-                     WHEN 'high' THEN 1 
-                     WHEN 'medium' THEN 2 
-                     WHEN 'low' THEN 3 
+                     WHEN ${Priorities.high} THEN 1 
+                     WHEN ${Priorities.medium} THEN 2 
+                     WHEN ${Priorities.low} THEN 3 
                      END`;
           if (orderDirection === "DESC") {
             query += " DESC";

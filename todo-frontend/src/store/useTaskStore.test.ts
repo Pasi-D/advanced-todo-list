@@ -6,7 +6,12 @@ import {
   afterEach,
   jest,
 } from "@jest/globals";
-import { Task, TaskFilter } from "@workspace/shared-types";
+import {
+  Priorities,
+  Recurrences,
+  Task,
+  TaskFilter,
+} from "@workspace/shared-types";
 import useTaskStore from "./useTaskStore";
 
 // Mock the taskApi module
@@ -32,7 +37,7 @@ jest.mock("../services/taskApi", () => {
       priority: "high",
       createdAt: new Date("2023-01-02"),
       updatedAt: new Date("2023-01-02"),
-      recurrence: "daily",
+      recurrence: Recurrences.daily,
       dependsOn: ["1"],
     },
   ];
@@ -83,7 +88,7 @@ describe("useTaskStore", () => {
       sort: { field: "createdAt", direction: "desc" },
       filter: {
         searchTerm: "",
-        priorities: ["low", "medium", "high"],
+        priorities: [Priorities.low, Priorities.medium, Priorities.high],
         showCompleted: true,
       },
     });

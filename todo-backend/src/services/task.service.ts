@@ -1,5 +1,5 @@
 import TaskModel from "../models/task.model";
-import { Task, TaskFilter, TaskSort } from "@workspace/shared-types";
+import { Recurrences, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
 class TaskService {
   public taskModel = new TaskModel();
@@ -92,11 +92,11 @@ class TaskService {
     const currentDate = new Date(dueDate);
 
     switch (recurrence) {
-      case "daily":
+      case Recurrences.daily:
         return new Date(currentDate.setDate(currentDate.getDate() + 1));
-      case "weekly":
+      case Recurrences.weekly:
         return new Date(currentDate.setDate(currentDate.getDate() + 7));
-      case "monthly":
+      case Recurrences.monthly:
         return new Date(currentDate.setMonth(currentDate.getMonth() + 1));
       default:
         return null; // No recurrence
