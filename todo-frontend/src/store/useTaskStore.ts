@@ -45,7 +45,6 @@ const useTaskStore = create<TaskState>()((set, get) => ({
   fetchTasks: async (filter = get().filter, sort = get().sort) => {
     set({ isLoading: true, error: null });
     try {
-
       const tasks = await taskApi.searchTasks(filter, sort);
 
       set({ tasks, isLoading: false });
