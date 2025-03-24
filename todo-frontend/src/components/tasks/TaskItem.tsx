@@ -144,7 +144,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
                   {getRecurrenceLabel() && (
                     <Badge
                       variant="outline"
-                      className="flex items-center gap-1"
+                      className="flex items-center gap-1 text-black dark:text-white"
                     >
                       <Repeat size={12} />
                       {getRecurrenceLabel()}
@@ -154,7 +154,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
                   {hasDependencies && (
                     <Badge
                       variant="outline"
-                      className="cursor-pointer"
+                      className="cursor-pointer text-black dark:text-white"
                       onClick={() => setShowDependencies(!showDependencies)}
                     >
                       <Link size={12} className="mr-1" />
@@ -198,7 +198,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
               )}
 
               {task.dueDate && (
-                <div className="flex items-center gap-1 text-muted-foreground text-xs mt-2">
+                <div className="flex items-center gap-1 text-muted-foreground text-xs mt-2 dark:text-[#e6e3e3]">
                   <Calendar size={12} />
                   <span>
                     Due {format(new Date(task.dueDate), "MMM d, yyyy")}
