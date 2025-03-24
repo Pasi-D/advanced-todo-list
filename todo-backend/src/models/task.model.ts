@@ -186,9 +186,9 @@ class TaskModel {
         case "priority":
           // Custom priority order: high, medium, low
           query += ` ORDER BY CASE priority 
-                     WHEN ${Priorities.high} THEN 1 
-                     WHEN ${Priorities.medium} THEN 2 
-                     WHEN ${Priorities.low} THEN 3 
+                     WHEN '${Priorities.high}' THEN 1 
+                     WHEN '${Priorities.medium}' THEN 2 
+                     WHEN '${Priorities.low}' THEN 3 
                      END`;
           if (orderDirection === "DESC") {
             query += " DESC";
