@@ -80,6 +80,18 @@ const TaskItem = ({ task }: TaskItemProps) => {
   };
 
   const handleDeleteTask = () => {
+    // Check if the task is a dependency for other tasks
+    const dependentTasks = tasks.filter((t) => t.dependsOn?.includes(task.id));
+    if (dependentTasks.length > 0) {
+      toast.error(
+        `Cannot delete this task as it is a dependency for the following tasks: ${dependentTasks
+          .map((t) => t.title)
+          .join(", ")}`,
+      );
+      return;
+    }
+
+    // Proceed with deletion if no dependencies exist
     deleteTask(task.id);
     toast.success("Task deleted successfully");
     setConfirmDelete(false);
