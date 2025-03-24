@@ -6,6 +6,7 @@ import swaggerUi from "swagger-ui-express";
 import { IController } from "./types";
 import { initDatabase } from "./config/database.config";
 import swaggerOptions from "./config/swagger.config";
+import initializeScheduler from "./schedulers/task.scheduler";
 
 const PORT = 3000;
 
@@ -18,6 +19,7 @@ class App {
     this.initializeSwagger();
     this.initializeDatabase();
     this.initializeControllers(controllers);
+    this.initializeScheduler();
   }
 
   private initializeControllers(controllers: IController[]) {
@@ -40,6 +42,10 @@ class App {
     const swaggerSpec = swaggerJSDoc(swaggerOptions);
     this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     console.info(`Swagger documentation available at http://localhost:${PORT}/api-docs 📚`);
+  }
+
+  private initializeScheduler() {
+    initializeScheduler();
   }
 
   public listen() {

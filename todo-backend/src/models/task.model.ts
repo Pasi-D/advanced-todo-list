@@ -220,6 +220,15 @@ class TaskModel {
     return tasks.map(this.mapTaskFromDb);
   };
 
+  public getRecurringTasks = async (): Promise<Task[]> => {
+    const stmt = db.prepare(`
+      SELECT * FROM tasks
+      WHERE recurrence != 'none' AND dueDate <= ?
+    `);
+    const tasks = stmt.all(new Date().toISOString());
+    return tasks.map(this.mapTaskFromDb);
+  };
+
   private mapTaskFromDb = (dbTask: any): Task => {
     let dependsOn: string[] = [];
 

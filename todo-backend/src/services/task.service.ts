@@ -68,6 +68,40 @@ class TaskService {
 
     return { valid: true };
   };
+
+  public handleRecurringTasks = async (): Promise<void> => {
+    // Fetch all recurring tasks
+    const recurringTasks = await this.taskModel.getRecurringTasks();
+  
+    for (const task of recurringTasks) {
+      // Calculate the next due date based on the recurrence type
+      const nextDueDate = this.calculateNextDueDate(task.dueDate!, task.recurrence);
+  
+      // If the next due date is valid and in the past or today, create a new task
+      if (nextDueDate && nextDueDate <= new Date()) {
+        await this.taskModel.createTask({
+          ...task,
+          dueDate: nextDueDate,
+        });
+      }
+    }
+  };
+
+  // Helper method to calculate the next due date
+  private calculateNextDueDate(dueDate: Date, recurrence: string): Date | null {
+    const currentDate = new Date(dueDate);
+
+    switch (recurrence) {
+      case "daily":
+        return new Date(currentDate.setDate(currentDate.getDate() + 1));
+      case "weekly":
+        return new Date(currentDate.setDate(currentDate.getDate() + 7));
+      case "monthly":
+        return new Date(currentDate.setMonth(currentDate.getMonth() + 1));
+      default:
+        return null; // No recurrence
+    }
+  }
 }
 
 export default TaskService;
