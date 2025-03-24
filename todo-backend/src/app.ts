@@ -1,8 +1,11 @@
 import express, { Application as ExpressApplication } from "express";
 import cors from "cors";
 import helmet from "helmet";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 import { IController } from "./types";
 import { initDatabase } from "./config/database.config";
+import swaggerOptions from "./config/swagger.config";
 
 const PORT = 3000;
 
@@ -12,6 +15,7 @@ class App {
   constructor(controllers: IController[]) {
     this.app = express();
     this.initializeMiddleware();
+    this.initializeSwagger();
     this.initializeDatabase();
     this.initializeControllers(controllers);
   }
@@ -30,6 +34,12 @@ class App {
 
   private initializeDatabase() {
     initDatabase();
+  }
+
+  private initializeSwagger() {
+    const swaggerSpec = swaggerJSDoc(swaggerOptions);
+    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    console.info(`Swagger documentation available at http://localhost:${PORT}/api-docs 📚`);
   }
 
   public listen() {
