@@ -5,6 +5,7 @@ import {
   TaskSort,
   TaskFilter,
   Priorities,
+  CreateTaskDto,
 } from "@workspace/shared-types";
 
 interface TaskState {
@@ -17,13 +18,8 @@ interface TaskState {
     filter?: Partial<TaskFilter>,
     sort?: Partial<TaskSort>,
   ) => Promise<void>;
-  addTask: (
-    task: Omit<Task, "id" | "createdAt" | "updatedAt">,
-  ) => Promise<string | null>;
-  updateTask: (
-    id: string,
-    updates: Partial<Omit<Task, "id" | "createdAt" | "updatedAt">>,
-  ) => Promise<boolean>;
+  addTask: (task: CreateTaskDto) => Promise<string | null>;
+  updateTask: (id: string, updates: Partial<CreateTaskDto>) => Promise<boolean>;
   deleteTask: (id: string) => Promise<boolean>;
   toggleTaskCompletion: (id: string) => Promise<boolean>;
   setSort: (sort: TaskSort) => void;
@@ -128,7 +124,7 @@ const useTaskStore = create<TaskState>()((set, get) => ({
   },
 
   toggleTaskCompletion: async (id) => {
-    const { canComplete, blockedBy } = get().canCompleteTask(id);
+    const { canComplete } = get().canCompleteTask(id);
     const task = get().tasks.find((t) => t.id === id);
 
     if (!canComplete && task && !task.completed) {

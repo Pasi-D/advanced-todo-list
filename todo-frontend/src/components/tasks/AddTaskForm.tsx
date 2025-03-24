@@ -21,6 +21,7 @@ import {
 } from "@/components/ui";
 import useTaskStore from "@/store/useTaskStore";
 import {
+  CreateTaskDto,
   Priorities,
   Priority,
   Recurrences,
@@ -143,7 +144,7 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
       toast.success("Task updated successfully");
       if (onSuccess) onSuccess();
     } else {
-      const newTask: Omit<Task, "id" | "createdAt" | "updatedAt"> = {
+      const newTask: CreateTaskDto = {
         title: title.trim(),
         description: description.trim(),
         priority,

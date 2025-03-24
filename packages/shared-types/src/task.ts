@@ -49,3 +49,5 @@ export interface TaskFilter {
   showCompleted: boolean | undefined;
   recurrence?: RecurrenceType;
 }
+
+export type CreateTaskDto = Omit<Task, "id" | "createdAt" | "updatedAt">;

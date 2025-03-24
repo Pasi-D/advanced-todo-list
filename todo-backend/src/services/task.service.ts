@@ -1,6 +1,6 @@
 import { getDatabase } from "../config/database.config";
 import TaskModel from "../models/task.model";
-import { Recurrences, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
+import { CreateTaskDto, Recurrences, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
 class TaskService {
   public taskModel = new TaskModel(getDatabase());
@@ -9,13 +9,13 @@ class TaskService {
     return await this.taskModel.getAllTasks();
   };
 
-  public createTask = async (task: Omit<Task, "id" | "createdAt" | "updatedAt">): Promise<Task> => {
+  public createTask = async (task: CreateTaskDto): Promise<Task> => {
     return await this.taskModel.createTask(task);
   };
 
   public updateTask = async (
     taskId: string,
-    updates: Partial<Omit<Task, "id" | "createdAt" | "updatedAt">>,
+    updates: Partial<CreateTaskDto>,
   ) => {
     return await this.taskModel.updateTask(taskId, updates);
   };

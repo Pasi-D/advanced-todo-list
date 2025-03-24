@@ -1,6 +1,6 @@
 import { Database as IDatabase } from "better-sqlite3";
 import { v4 as uuidv4 } from "uuid";
-import { Priorities, Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
+import { CreateTaskDto, Priorities, Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
 class TaskModel {
   private db: IDatabase;
@@ -16,7 +16,7 @@ class TaskModel {
     return tasks.map(this.mapTaskFromDb);
   };
 
-  public createTask = async (task: Omit<Task, "id" | "createdAt" | "updatedAt">): Promise<Task> => {
+  public createTask = async (task: CreateTaskDto): Promise<Task> => {
     const now = new Date();
     const id = uuidv4();
 
@@ -64,7 +64,7 @@ class TaskModel {
 
   public updateTask = async (
     id: string,
-    updates: Partial<Omit<Task, "id" | "createdAt" | "updatedAt">>,
+    updates: Partial<CreateTaskDto>,
   ) => {
     const task = this.getTaskById(id);
 

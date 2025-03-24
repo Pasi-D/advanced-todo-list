@@ -1,4 +1,4 @@
-import { Task, TaskSort, TaskFilter } from "@workspace/shared-types";
+import { Task, TaskSort, TaskFilter, CreateTaskDto } from "@workspace/shared-types";
 
 const API_HOST = import.meta.env.VITE_API_HOST || "http://localhost:3000";
 
@@ -21,9 +21,7 @@ const taskApi = {
   },
 
   // Create a new task
-  createTask: async (
-    task: Omit<Task, "id" | "createdAt" | "updatedAt">,
-  ): Promise<Task> => {
+  createTask: async (task: CreateTaskDto): Promise<Task> => {
     const response = await fetch(`${API_HOST}/task`, {
       method: "POST",
       headers: {
@@ -90,7 +88,7 @@ const taskApi = {
   // Update a task
   updateTask: async (
     id: string,
-    updates: Partial<Omit<Task, "id" | "createdAt" | "updatedAt">>,
+    updates: Partial<CreateTaskDto>,
   ): Promise<Task> => {
     const response = await fetch(`${API_HOST}/task/${id}`, {
       method: "PUT",
