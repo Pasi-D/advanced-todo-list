@@ -194,10 +194,10 @@ const TaskHeader = ({ taskCount }: TaskHeaderProps) => {
                     })
                   }
                 >
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="w-full bg-white ring-offset-stone-50">
                     <SelectValue placeholder="All tasks" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     <SelectItem value="all">All tasks</SelectItem>
                     <SelectItem value={Recurrences.none}>One-time</SelectItem>
                     <SelectItem value={Recurrences.daily}>Daily</SelectItem>

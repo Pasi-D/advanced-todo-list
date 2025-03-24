@@ -212,7 +212,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="task-action-button"
+                  className="task-action-button dark:text-white text-black"
                 >
                   <MoreHorizontal size={18} />
                 </Button>
