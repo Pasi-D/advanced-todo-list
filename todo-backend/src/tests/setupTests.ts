@@ -1,4 +1,4 @@
-import { db, initDatabase } from "../config/database";
+import { db, initDatabase } from "../config/database.config";
 import path from "path";
 import fs from "fs";
 

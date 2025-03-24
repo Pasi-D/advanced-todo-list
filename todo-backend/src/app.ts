@@ -2,7 +2,7 @@ import express, { Application as ExpressApplication } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { IController } from "./types";
-import { initDatabase } from "./config/database";
+import { initDatabase } from "./config/database.config";
 
 const PORT = 3000;
 

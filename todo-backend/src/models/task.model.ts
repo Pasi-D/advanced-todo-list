@@ -1,4 +1,4 @@
-import { db } from "../config/database";
+import { db } from "../config/database.config";
 import { v4 as uuidv4 } from "uuid";
 import { Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
