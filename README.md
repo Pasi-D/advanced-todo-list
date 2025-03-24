@@ -79,8 +79,28 @@ You can build a production build using below command
 ```bash
 yarn web:build
 ```
+---
+> ### Running unit tests in frontend (WIP)
 
-> ### Running unit tests in backend
+The unit tests are aimed to run the tests on zustand store
+
+You can run the unit tests using
+
+```bash
+yarn web:test
+```
+
+You can generate coverage report via
+
+```bash
+yarn web:test:coverage
+```
+
+This will be available within `todo-frontend/coverage` directory.
+
+---
+
+> ### Running unit tests in backend (WIP)
 
 You can run the unit tests using
 

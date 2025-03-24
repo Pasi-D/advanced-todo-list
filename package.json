@@ -5,6 +5,9 @@
     "scripts": {
         "web:dev": "yarn workspace todo-frontend dev",
         "web:build": "yarn workspace todo-frontend build",
+        "web:test": "yarn workspace todo-frontend test",
+        "web:test:watch": "yarn workspace todo-frontend test:watch",
+        "web:test:coverage": "yarn workspace todo-frontend test:coverage",
         "api:dev": "yarn workspace todo-backend dev",
         "api:build": "yarn workspace todo-backend build",
         "api:start": "yarn workspace todo-backend start",
