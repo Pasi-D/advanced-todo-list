@@ -11,20 +11,20 @@
 
 ### Frontend (React.js + TypeScript)
 ✅ Implement a TODO list with the following features:
-- Users can add, delete, update, and search tasks.
-- Each task has a title, status (done/not done), and priority (Low/Medium/High).
-- Tasks should be sortable by priority or status. ⭐⭐
-- Users can create recurring tasks (daily, weekly, monthly). ⭐⭐⭐
-- Users can define dependencies between tasks (e.g., Task A cannot be completed
-before Task B). ⭐⭐⭐
+- Users can add, delete, update, and search tasks. [✔️]
+- Each task has a title, status (done/not done), and priority (Low/Medium/High). [✔️]
+- Tasks should be sortable by priority or status. ⭐⭐ [✔️]
+- Users can create recurring tasks (daily, weekly, monthly). ⭐⭐⭐ [✔️]
+- Users can define dependencies between tasks (e.g., Task A cannot be completed [✔️]
+before Task B). ⭐⭐⭐ [✔️]
 
 ### Backend (Node.js + Express + TypeScript)
 ✅ Implement a REST API to support the frontend, including:
-- Adding, deleting, updating tasks.
-- Searching and filtering tasks by status, priority. ⭐⭐
-- Handling recurring tasks logic (auto-create at scheduled intervals). ⭐⭐⭐
+- Adding, deleting, updating tasks. [✔️]
+- Searching and filtering tasks by status, priority. ⭐⭐ [✔️]
+- Handling recurring tasks logic (auto-create at scheduled intervals). ⭐⭐⭐ [✔️]
 - Enforcing task dependencies (e.g., Task A must be completed before Task B).
-⭐⭐⭐
+⭐⭐⭐ [✔️]
 
 ---
 
