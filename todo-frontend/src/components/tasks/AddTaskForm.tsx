@@ -48,6 +48,13 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
     taskToEdit?.dependsOn || [],
   );
 
+  // Field validation states
+  const [fieldErrors, setFieldErrors] = useState({
+    title: "",
+    description: "",
+    dueDate: "",
+  });
+
   const tasks = useTaskStore((state) => state.tasks);
   const addTask = useTaskStore((state) => state.addTask);
   const updateTask = useTaskStore((state) => state.updateTask);
@@ -87,10 +94,34 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
     },
   ];
 
+  const validateForm = () => {
+    const newErrors = {
+      title: "",
+      description: "",
+      dueDate: "",
+    };
+
+    if (title.trim() === "") {
+      newErrors.title = "Title is required.";
+    }
+
+    if (description.trim() === "") {
+      newErrors.description = "Description is required.";
+    }
+
+    if (!dueDate) {
+      newErrors.dueDate = "Due date is required.";
+    }
+
+    setFieldErrors(newErrors);
+
+    return !Object.values(newErrors).some((error) => error !== "");
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (title.trim() === "") {
-      toast.error("Title cannot be empty");
+
+    if (!validateForm()) {
       return;
     }
 
@@ -149,6 +180,9 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+        {fieldErrors.title && (
+          <p className="text-red-500 text-sm">{fieldErrors.title}</p>
+        )}
       </div>
       <div className="grid gap-2">
         <Label htmlFor="description">Description</Label>
@@ -159,6 +193,9 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+        {fieldErrors.description && (
+          <p className="text-red-500 text-sm">{fieldErrors.description}</p>
+        )}
       </div>
       <div className="grid gap-2">
         <Label htmlFor="priority">Priority</Label>
@@ -205,6 +242,9 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
             />
           </PopoverContent>
         </Popover>
+        {fieldErrors.dueDate && (
+          <p className="text-red-500 text-sm">{fieldErrors.dueDate}</p>
+        )}
       </div>
 
       {/* Dependencies Section */}
