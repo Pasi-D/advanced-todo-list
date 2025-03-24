@@ -66,6 +66,10 @@ Then start the build
 yarn api:start
 ```
 
+> ### Swagger documentation on API
+
+After starting the development/production API server, you can go to http://localhost:3000/api-docs to view the swagger documentation of the APIs available.
+
 > ### Starting the Advanced TODO Frontend
 
 You can do this in development environment with below command
