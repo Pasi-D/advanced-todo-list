@@ -33,7 +33,7 @@ before Task B). ⭐⭐⭐ [✔️]
 ---
 ### Pre-requisites
 
-- Make sure you have Node JS installed on your environment. Use the node version specified in [./nvmrc]('./nvmrc') file.
+- Make sure you have [Node JS](https://nodejs.org/) installed on your environment. Use the node version specified in [./nvmrc]('./.nvmrc') file.
 - Make sure you have [yarn](https://classic.yarnpkg.com/en/)
 - Ensure you have updated the environment variables in `todo-frontend` directory. Refer [Frontend README](./todo-frontend/README.md)
 
