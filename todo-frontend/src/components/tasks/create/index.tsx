@@ -9,8 +9,8 @@ import {
   RecurrenceType,
   Task,
 } from "@workspace/shared-types";
-import PrioritySelect from "./form/PrioritySelect";
-import RecurrenceSelect from "./form/RecurrenceSelect";
+import PrioritySelect from "./form/PrioritySelector";
+import RecurrenceSelect from "./form/RecurrenceSelector";
 import DependencySelector from "./form/DependencySelector";
 
 interface AddTaskFormProps {
