@@ -8,7 +8,6 @@ export * from "./dropdown-menu";
 export * from "./input";
 export * from "./label";
 export * from "./pagination";
-export * from "./popover";
 export * from "./select";
 export * from "./scroll-area";
 export * from "./separator";
