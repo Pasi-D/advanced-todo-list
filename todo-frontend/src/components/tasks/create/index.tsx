@@ -163,7 +163,7 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
         date={dueDate}
         onChange={setDueDate}
         label="Due Date"
-        containerClassName="grid gap-2"
+        containerClassName="grid gap-2 relative"
       />
       <DependencySelector
         availableDependencies={availableDependencies}
