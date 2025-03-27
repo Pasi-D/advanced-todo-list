@@ -31,7 +31,7 @@ import {
   TaskSort,
 } from "@workspace/shared-types";
 import useTaskStore from "@/store/useTaskStore";
-import AddTaskForm from "./AddTaskForm";
+import AddTaskForm from "./create";
 import { getPriorityColor, getPriorityLabel } from "@/lib/utils";
 
 interface TaskHeaderProps {

@@ -39,7 +39,7 @@ import {
 import useTaskStore from "@/store/useTaskStore";
 import { Recurrences, Task } from "@workspace/shared-types";
 import { Separator } from "@/components/ui/separator";
-import AddTaskForm from "./AddTaskForm";
+import AddTaskForm from "./create";
 import { getPriorityColor, getPriorityLabel } from "@/lib/utils";
 
 interface TaskItemProps {

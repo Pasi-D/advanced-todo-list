@@ -1,5 +1,5 @@
 import TaskDashboard from "@/components/tasks/TaskDashboard";
-import { ThemeToggle } from "../components/themeToggle";
+import { ThemeToggle } from "../components/ThemeToggle";
 import { motion } from "framer-motion";
 
 const Landing = () => {
