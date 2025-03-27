@@ -190,7 +190,8 @@ const TaskHeader = ({ taskCount }: TaskHeaderProps) => {
                   value={filter.recurrence || "all"}
                   onValueChange={(value) =>
                     setFilter({
-                      recurrence: value === "all" ? undefined : (value as any),
+                      recurrence:
+                        value === "all" ? undefined : (value as Recurrences),
                     })
                   }
                 >

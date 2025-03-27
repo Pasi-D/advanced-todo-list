@@ -1,4 +1,9 @@
-import { Task, TaskSort, TaskFilter, CreateTaskDto } from "@workspace/shared-types";
+import {
+  Task,
+  TaskSort,
+  TaskFilter,
+  CreateTaskDto,
+} from "@workspace/shared-types";
 
 const API_HOST = import.meta.env.VITE_API_HOST || "http://localhost:3000";
 
@@ -12,7 +17,7 @@ const taskApi = {
     const data = await response.json();
 
     // Convert date strings to Date objects
-    return data.map((task: any) => ({
+    return data.map((task: Task) => ({
       ...task,
       createdAt: new Date(task.createdAt),
       updatedAt: new Date(task.updatedAt),
@@ -77,7 +82,7 @@ const taskApi = {
     const data = await response.json();
 
     // Convert date strings to Date objects
-    return data.map((task: any) => ({
+    return data.map((task: Task) => ({
       ...task,
       createdAt: new Date(task.createdAt),
       updatedAt: new Date(task.updatedAt),
