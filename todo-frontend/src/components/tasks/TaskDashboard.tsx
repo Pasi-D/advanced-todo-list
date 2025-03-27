@@ -6,6 +6,7 @@ import TaskHeader from "./TaskHeader";
 import TaskItem from "./TaskItem";
 import useTaskStore from "@/store/useTaskStore";
 import { Task } from "@workspace/shared-types";
+import ErrorDisplay from "../ErrorDisplay";
 
 const TaskDashboard = () => {
   const { tasks, isLoading, error, fetchTasks, getFilteredSortedTasks } =
@@ -42,15 +43,7 @@ const TaskDashboard = () => {
 
   if (error) {
     return (
-      <div className="text-destructive p-4 rounded-md bg-destructive/10 text-center">
-        <p>{error}. Please try again later.</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="mt-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none transition-all"
-        >
-          Refresh Page
-        </button>
-      </div>
+      <ErrorDisplay message={error} onRetry={() => window.location.reload()} />
     );
   }
 
