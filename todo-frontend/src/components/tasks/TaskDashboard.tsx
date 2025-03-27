@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import {
@@ -17,6 +17,21 @@ import { Task } from "@workspace/shared-types";
 import ErrorDisplay from "../ErrorDisplay";
 
 const ITEMS_PER_PAGE = 5;
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
 
 const TaskDashboard = () => {
   const { tasks, isLoading, error, fetchTasks, getFilteredSortedTasks } =
@@ -120,59 +135,83 @@ const TaskDashboard = () => {
       <TaskHeader taskCount={tasks.length} />
       <div>
         {filteredTasks.length === 0 ? (
-          <p className="text-muted-foreground">No tasks found.</p>
+          <motion.p
+            className="text-muted-foreground"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            No tasks found.
+          </motion.p>
         ) : (
-          <AnimatePresence>
-            {currentTasks.map((task) => (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            className="space-y-4"
+          >
+            {currentTasks.map((task, index) => (
               <motion.div
                 key={task.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -50 }}
-                transition={{ duration: 0.2 }}
+                variants={itemVariants}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.05,
+                }}
               >
                 <TaskItem task={task} />
               </motion.div>
             ))}
-          </AnimatePresence>
+          </motion.div>
         )}
       </div>
 
       {filteredTasks.length > ITEMS_PER_PAGE && (
-        <Pagination className="mt-6">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => handlePageChange(currentPage - 1)}
-                aria-disabled={currentPage === 1}
-                className={
-                  currentPage === 1 ? "pointer-events-none opacity-50" : ""
-                }
-              />
-            </PaginationItem>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.3 }}
+        >
+          <Pagination className="mt-6">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  aria-disabled={currentPage === 1}
+                  className={
+                    currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                  }
+                />
+              </PaginationItem>
 
-            {renderPaginationLinks()}
+              {renderPaginationLinks()}
 
-            <PaginationItem>
-              <PaginationNext
-                onClick={() => handlePageChange(currentPage + 1)}
-                aria-disabled={currentPage === totalPages}
-                className={
-                  currentPage === totalPages
-                    ? "pointer-events-none opacity-50"
-                    : ""
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  aria-disabled={currentPage === totalPages}
+                  className={
+                    currentPage === totalPages
+                      ? "pointer-events-none opacity-50"
+                      : ""
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </motion.div>
       )}
 
       {isLoading && tasks.length > 0 && (
-        <div className="flex justify-center items-center py-4">
+        <motion.div
+          className="flex justify-center items-center py-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
           <Loader2 className="animate-spin h-5 w-5 text-primary mr-2" />
           <span className="text-sm text-muted-foreground">Updating...</span>
-        </div>
+        </motion.div>
       )}
     </div>
   );
