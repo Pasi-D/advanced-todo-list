@@ -65,7 +65,13 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={`gap-1 ${className || ""}`}
+    className={`
+      group flex items-center gap-1 
+      hover:bg-accent hover:text-accent-foreground 
+      focus:bg-accent focus:text-accent-foreground
+      transition-colors duration-200 
+      px-2 py-1 rounded-md
+      ${className || ""}`}
     {...props}
   >
     <ChevronLeft className="h-3 w-3 inline-flex items-center" />
@@ -81,7 +87,13 @@ const PaginationNext = ({
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={`gap-1 ${className || ""}`}
+    className={`
+      group flex items-center gap-1 
+      hover:bg-accent hover:text-accent-foreground 
+      focus:bg-accent focus:text-accent-foreground
+      transition-colors duration-200 
+      px-2 py-1 rounded-md
+      ${className || ""}`}
     {...props}
   >
     <span className="inline-flex items-center pl-5">Next</span>
