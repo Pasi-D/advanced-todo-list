@@ -6,6 +6,8 @@ import {
   TaskFilter,
   Priorities,
   CreateTaskDto,
+  SortFields,
+  SortDirections,
 } from "@workspace/shared-types";
 
 interface TaskState {
@@ -36,7 +38,7 @@ const useTaskStore = create<TaskState>()((set, get) => ({
   tasks: [],
   isLoading: false,
   error: null,
-  sort: { field: "createdAt", direction: "desc" },
+  sort: { field: SortFields.createdAt, direction: SortDirections.desc },
   filter: {
     searchTerm: "",
     priorities: [Priorities.low, Priorities.medium, Priorities.high],

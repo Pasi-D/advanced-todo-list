@@ -1,3 +1,4 @@
+import { SortFields } from "@workspace/shared-types";
 import { getDatabase, TEST_DB_NAME } from "../../config/database.config";
 import TaskModel from "../../models/task.model";
 import { createTaskPayload, sampleTask, updateTaskPayload } from "../fixtures/task.fixtures";
@@ -23,7 +24,7 @@ describe("TaskModel", () => {
       expect(task.priority).toBe(createTaskPayload.priority);
       expect(task.completed).toBe(createTaskPayload.completed);
       expect(task.recurrence).toBe(createTaskPayload.recurrence);
-      expect(task).toHaveProperty("createdAt");
+      expect(task).toHaveProperty(SortFields.createdAt);
       expect(task).toHaveProperty("updatedAt");
     });
   });

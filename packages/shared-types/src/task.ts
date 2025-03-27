@@ -14,6 +14,18 @@ export enum Priorities {
   high = "high",
 }
 
+export enum SortFields {
+  priority = "priority",
+  dueDate = "dueDate",
+  createdAt = "createdAt",
+  completed = "completed",
+}
+
+export enum SortDirections {
+  asc = "asc",
+  desc = "desc",
+}
+
 export type Priority = keyof typeof Priorities;
 
 export type RecurrenceType = keyof typeof Recurrences;
@@ -35,8 +47,8 @@ export type Task = z.infer<typeof taskSchema>;
 
 export const TaskOpenApiSchema = generateSchema(taskSchema);
 
-export type SortField = "priority" | "dueDate" | "createdAt" | "completed";
-export type SortDirection = "asc" | "desc";
+export type SortField = keyof typeof SortFields;
+export type SortDirection = keyof typeof SortDirections;
 
 export interface TaskSort {
   field: SortField;

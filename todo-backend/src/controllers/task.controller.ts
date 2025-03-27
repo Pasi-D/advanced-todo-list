@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
+import { Priority, RecurrenceType, SortFields, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 import TaskService from "../services/task.service";
 import { validationResult } from "express-validator";
 import { IController } from "../types";
@@ -265,7 +265,7 @@ class TaskController implements IController {
         priorities = [],
         showCompleted,
         recurrence,
-        sortField = "createdAt",
+        sortField = SortFields.createdAt,
         sortDirection = "desc",
       } = request.query;
 
@@ -283,8 +283,8 @@ class TaskController implements IController {
       };
 
       const sort: TaskSort = {
-        field: sortField as any,
-        direction: sortDirection as "asc" | "desc",
+        field: sortField as TaskSort["field"],
+        direction: sortDirection as TaskSort["direction"],
       };
 
       const tasks = await this.taskService.searchTasks(filter, sort);

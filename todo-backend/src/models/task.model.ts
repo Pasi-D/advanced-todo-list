@@ -1,6 +1,6 @@
 import { Database as IDatabase } from "better-sqlite3";
 import { v4 as uuidv4 } from "uuid";
-import { CreateTaskDto, Priorities, Priority, RecurrenceType, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
+import { CreateTaskDto, Priorities, Priority, RecurrenceType, SortFields, Task, TaskFilter, TaskSort } from "@workspace/shared-types";
 
 class TaskModel {
   private db: IDatabase;
@@ -155,7 +155,7 @@ class TaskModel {
 
   public searchTasks = async (filter: TaskFilter, sort?: TaskSort): Promise<Task[]> => {
     let query = "SELECT * FROM tasks WHERE 1=1";
-    const params: any[] = [];
+    const params: (string | number | null)[] = [];
 
     // Apply filters
     if (filter.searchTerm) {
@@ -183,8 +183,7 @@ class TaskModel {
       const orderDirection = sort.direction.toUpperCase();
 
       switch (sort.field) {
-        case "priority":
-          // Custom priority order: high, medium, low
+        case SortFields.priority:
           query += ` ORDER BY CASE priority 
                      WHEN '${Priorities.high}' THEN 1 
                      WHEN '${Priorities.medium}' THEN 2 
@@ -194,21 +193,20 @@ class TaskModel {
             query += " DESC";
           }
           break;
-        case "dueDate":
+        case SortFields.dueDate:
           query += " ORDER BY dueDate";
           if (orderDirection === "DESC") {
             query += " DESC";
           }
-          // Place NULL values at the end
           query += " NULLS LAST";
           break;
-        case "completed":
+        case SortFields.completed:
           query += " ORDER BY completed";
           if (orderDirection === "DESC") {
             query += " DESC";
           }
           break;
-        case "createdAt":
+        case SortFields.createdAt:
         default:
           query += " ORDER BY createdAt";
           if (orderDirection === "DESC") {
