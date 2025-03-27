@@ -15,6 +15,7 @@ import TaskItem from "./TaskItem";
 import useTaskStore from "@/store/useTaskStore";
 import { Task } from "@workspace/shared-types";
 import ErrorDisplay from "../ErrorDisplay";
+import { useIsMobile } from "@/lib/hooks/use-mobile";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -40,6 +41,8 @@ const TaskDashboard = () => {
   const [filteredTasks, setFilteredTasks] = useState<Array<Task>>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const isMobile = useIsMobile();
+
   const fetchData = useCallback(async () => {
     await fetchTasks();
   }, [fetchTasks]);
@@ -59,9 +62,12 @@ const TaskDashboard = () => {
     }
   }, [error]);
 
+  // For mobile, show all tasks without pagination
   const totalPages = Math.ceil(filteredTasks.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredTasks.length);
+  const startIndex = isMobile ? 0 : (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = isMobile
+    ? filteredTasks.length
+    : Math.min(startIndex + ITEMS_PER_PAGE, filteredTasks.length);
   const currentTasks = filteredTasks.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
@@ -166,7 +172,7 @@ const TaskDashboard = () => {
         )}
       </div>
 
-      {filteredTasks.length > ITEMS_PER_PAGE && (
+      {!isMobile && filteredTasks.length > ITEMS_PER_PAGE && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
