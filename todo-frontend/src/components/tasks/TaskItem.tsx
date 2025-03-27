@@ -1,46 +1,16 @@
 import { useState } from "react";
 import { format } from "date-fns";
-import {
-  Calendar,
-  Check,
-  Edit,
-  MoreHorizontal,
-  Repeat,
-  Trash,
-  X,
-  Link,
-} from "lucide-react";
+import { Calendar, Repeat, Link } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  Badge,
-  Button,
-  Checkbox,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui";
+import { Badge, Checkbox } from "@/components/ui";
 import useTaskStore from "@/store/useTaskStore";
 import { Recurrences, Task } from "@workspace/shared-types";
-import { Separator } from "@/components/ui/separator";
 import AddTaskForm from "./create";
 import { getPriorityColor, getPriorityLabel } from "@/lib/utils";
+import TaskSheet from "./TaskSheet";
+import DeleteConfirmDialog from "./TaskDeleteConfirmDialog";
+import TaskActionsDropdown from "./TaskActionDropdown";
 
 interface TaskItemProps {
   task: Task;
@@ -207,90 +177,36 @@ const TaskItem = ({ task }: TaskItemProps) => {
               )}
             </div>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="task-action-button dark:text-white text-black"
-                >
-                  <MoreHorizontal size={18} />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Task Actions</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleToggleCompletion}>
-                  {task.completed ? (
-                    <>
-                      <X className="w-4 h-4 mr-2" />
-                      Mark as incomplete
-                    </>
-                  ) : (
-                    <>
-                      <Check className="w-4 h-4 mr-2" />
-                      Mark as complete
-                    </>
-                  )}
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setEditTaskSheet(true)}>
-                  <Edit className="w-4 h-4 mr-2" />
-                  Edit task
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => setConfirmDelete(true)}
-                  className="text-destructive focus:text-destructive"
-                >
-                  <Trash className="w-4 h-4 mr-2" />
-                  Delete task
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <TaskActionsDropdown
+              isTaskCompleted={task.completed}
+              onToggleCompletion={handleToggleCompletion}
+              onEdit={() => setEditTaskSheet(true)}
+              onDelete={() => setConfirmDelete(true)}
+            />
           </div>
         </div>
       </motion.div>
 
-      <AlertDialog open={confirmDelete} onOpenChange={setConfirmDelete}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              {`This will permanently delete the task ${task.title}. This action
-              cannot be undone.`}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="px-4 py-2 rounded-md">
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDeleteTask}
-              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none transition-all"
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteConfirmDialog
+        open={confirmDelete}
+        onOpenChange={setConfirmDelete}
+        onConfirm={handleDeleteTask}
+        title={task.title}
+      />
 
-      <Sheet open={editTaskSheet} onOpenChange={setEditTaskSheet}>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Edit Task</SheetTitle>
-            <SheetDescription>
-              Update task details and dependencies
-            </SheetDescription>
-          </SheetHeader>
-          <Separator className="my-4" />
-          <AddTaskForm
-            open={editTaskSheet}
-            setOpen={setEditTaskSheet}
-            taskToEdit={task}
-            onSuccess={() => setEditTaskSheet(false)}
-          />
-        </SheetContent>
-      </Sheet>
+      <TaskSheet
+        open={editTaskSheet}
+        setOpen={setEditTaskSheet}
+        title="Edit Task"
+        description="Update task details and dependencies"
+      >
+        <AddTaskForm
+          open={editTaskSheet}
+          setOpen={setEditTaskSheet}
+          taskToEdit={task}
+          onSuccess={() => setEditTaskSheet(false)}
+        />
+      </TaskSheet>
     </>
   );
 };
