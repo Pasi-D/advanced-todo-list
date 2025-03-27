@@ -212,4 +212,66 @@ describe("useTaskStore", () => {
       expect(error).toBe("Failed to delete task");
     });
   });
+  describe("toggleTaskCompletion", () => {
+    it("should not toggle task completion if task is not found", async () => {
+      const success = await useTaskStore
+        .getState()
+        .toggleTaskCompletion("non-existent-id");
+
+      const { tasks } = useTaskStore.getState();
+      expect(success).toBe(false);
+      expect(tasks).toHaveLength(0);
+    });
+
+    it("should not toggle task completion if dependencies are not met", async () => {
+      useTaskStore.setState({
+        tasks: [
+          {
+            id: "1",
+            title: "Task with dependency",
+            description: "This task has unmet dependencies",
+            completed: false,
+            priority: "medium",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            recurrence: "none",
+            dependsOn: ["2"],
+          },
+          {
+            id: "2",
+            title: "Dependency task",
+            description: "This task is incomplete",
+            completed: false,
+            priority: "medium",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            recurrence: "none",
+            dependsOn: [],
+          },
+        ],
+      });
+
+      jest.spyOn(useTaskStore.getState(), "canCompleteTask").mockReturnValue({
+        canComplete: false,
+        blockedBy: [
+          {
+            id: "2",
+            title: "Dependency task",
+            completed: false,
+            priority: "medium",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            recurrence: "none",
+            dependsOn: [],
+          },
+        ],
+      });
+
+      const success = await useTaskStore.getState().toggleTaskCompletion("1");
+
+      const { tasks } = useTaskStore.getState();
+      expect(success).toBe(false);
+      expect(tasks[0].completed).toBe(false);
+    });
+  });
 });
