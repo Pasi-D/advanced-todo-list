@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { PlusCircle, Search, X } from "lucide-react";
-import { Button, Input } from "@/components/ui";
+import {
+  Button,
+  buttonBaseStyles,
+  buttonSizes,
+  buttonVariants,
+  Input,
+} from "@/components/ui";
 import useTaskStore from "@/store/useTaskStore";
 import AddTaskForm from "./create";
 import TaskSheet from "./TaskSheet";
@@ -73,13 +79,14 @@ const TaskHeader = ({ taskCount }: TaskHeaderProps) => {
             setOpen={setAddTaskOpen}
             title="Add New Task"
             trigger={
-              <Button
-                className="rounded-full"
+              // Fix for "In HTML, <button> cannot be a descendant of <button>. This will cause a hydration error."
+              <span
+                className={`${buttonBaseStyles} ${buttonVariants["default"]} ${buttonSizes["default"]} rounded-full`}
                 onClick={() => setAddTaskOpen(true)}
               >
                 <PlusCircle size={18} className="mr-2" />
                 New Task
-              </Button>
+              </span>
             }
             description="Create a new task with details and dependencies"
           >
