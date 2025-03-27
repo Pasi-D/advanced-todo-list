@@ -165,6 +165,9 @@ const AddTaskForm = ({ setOpen, taskToEdit, onSuccess }: AddTaskFormProps) => {
         label="Due Date"
         containerClassName="grid gap-2 relative"
       />
+      {fieldErrors.dueDate && (
+        <p className="text-red-500 text-sm">{fieldErrors.dueDate}</p>
+      )}
       <DependencySelector
         availableDependencies={availableDependencies}
         selectedDependencies={dependencies}
